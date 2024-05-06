@@ -156,7 +156,7 @@ os.environ['LANGCHAIN_PROJECT'] = 'default'
 When you log in to Langsmith, you should see an output similar to the screenshot below.
 
 <p align="left">
-  <img src="images/4.png" alt="drawing" width="600"/>
+  <img src="images/4.png" alt="drawing" width="800"/>
 </p>
 
 In this way; you can monitor and evaluate your language model applications and  agents to help you move from prototype to production.
