@@ -146,10 +146,12 @@ To create an API key head to the settings <a href="https://smith.langchain.com/o
 
 You can enable monitoring by adding the following lines to the application.
 
+```python
 os.environ['LANGCHAIN_TRACING_V2'] = 'True'
 os.environ['LANGCHAIN_API_KEY'] = 'XXX'
 os.environ['LANGCHAIN_ENDPOINT'] = 'https://api.smith.langchain.com'
 os.environ['LANGCHAIN_PROJECT'] = 'default'
+```
 
 When you log in to Langsmith, you should see an output similar to the screenshot below.
 
