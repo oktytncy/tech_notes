@@ -150,7 +150,7 @@ You can enable monitoring by adding the following lines to the application.
 os.environ['LANGCHAIN_TRACING_V2'] = 'True'
 os.environ['LANGCHAIN_API_KEY'] = 'XXX'
 os.environ['LANGCHAIN_ENDPOINT'] = 'https://api.smith.langchain.com'
-os.environ['LANGCHAIN_PROJECT'] = 'default'
+os.environ['LANGCHAIN_PROJECT'] = 'car-models'
 ```
 
 When you log in to Langsmith, you should see an output similar to the screenshot below.
