@@ -163,10 +163,65 @@ In this way; you can monitor and evaluate your language model applications and  
 
 ## LangServe (Deployment)
 
-Deploy LangChain chains as REST APIs.
+LangServe is a library within the LangChain framework, designed to help developers deploy LangChain applications as REST APIs using FastAPI. 
+
+It automatically extracts and applies input and output schemas for API calls, provides detailed error messages, supports concurrent requests, and has efficient API endpoints for single and batch calls. 
+
+The library also includes a playground page for testing and API documentation capabilities. LangServe is built on well-established Python libraries like FastAPI and Pydantic, and it offers optional tracing to LangSmith with an API key.
+
+**Note:** FastAPI is a fast (high-performance), web framework for building APIs with Python based on standard Python type hints.
+
+### To Create REST APIs for LangChain Applications
+
+LangChain is a powerful framework for building applications with AI language models. It simplifies the process of interfacing with local or remote LLMs by making it easy to template prompts, configure query contexts, and chain discrete processes together to form complex pipelines.
+
+LangServe is a LangChain project that helps you build and deliver these applications over a REST API. Under the hood, it uses FastAPI to construct routes and build web services and leverages Pydantic to handle data validation.
+
+**Note:** Pydantic is the most widely used data validation library for Python.
+
+1. Create a project directory that will hold the application and assets you will create.
+
+```bash
+mkdir my-langserve-app
+cd my-langserve-app
+```
+
+2. Inside the created directory, create a file named .env in your text editor. Define the OPENAI_API_KEY environment variable by setting it to your OpenAI API key.
+
+```python
+# .env
+OPENAI_API_KEY="<YOUR_OPENAI_API_KEY>"
+```
+The application will read the API key in this file to verify its requests for OpenAI services.
+
+```python
+# app/server.py
+from decouple import config
+from fastapi import FastAPI
+from langchain_openai import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate
+from langserve import add_routes
+
+
+app = FastAPI()
+
+model = ChatOpenAI(openai_api_key=config("OPENAI_API_KEY"))
+prompt = ChatPromptTemplate.from_template("Give me a summary about {topic} in a paragraph or less.")
+chain = prompt | model
+
+add_routes(app, chain, path="/openai")
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+```
 
 ## LangFlow
 
 
 ## RagStack
 
+
+## NoSQLBench
