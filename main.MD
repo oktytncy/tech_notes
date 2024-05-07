@@ -194,6 +194,62 @@ OPENAI_API_KEY="<YOUR_OPENAI_API_KEY>"
 ```
 The application will read the API key in this file to verify its requests for OpenAI services.
 
+3. Create a Virtual Environment
+
+Some environments can be managed externally by a system package manager, such as Homebrew in macOS.
+
+This means that your system may prevent you from installing packages globally to avoid conflicts with packages managed by the system package manager. This may pose an obstacle to package installation.
+
+To avoid this issue, you can create a virtual environment before running python or pip commands.
+
+```python
+python3.11 -m venv myenv
+source myenv/bin/activate
+```
+
+4. Create the app directory structure and install dependencies
+
+Now that we are working in a virtual environment, we can start installing the packages that our application will use and setting up the project directory.
+
+Standard Python installations include the pip package manager by default. However, the LangServe project uses poetry by default. Therefore, we will install our dependencies in two stages.
+
+**Note:** Poetry is a tool for dependency management and packaging in Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you. Poetry offers a lockfile to ensure repeatable installs, and can build your project for distribution.
+
+First, install the langchain-cli and poetry package to get access to the langchain command line tool.
+
+```python
+pip install -U pip langchain-cli poetry
+```
+
+Next, with the newly installed langchain command, initialize a LangChain project in the current directory. The reason we added the dot is because the current directory is being targeted.
+
+```python
+langchain app new .
+```
+
+After running it, it will ask if you want to install any packages.
+This prompt actually refers to LangChain templates, not Python packages. Press ENTER to continue without adding any templates.
+
+With the new project files, your directory should look similar to the screenshot below:
+
+<p align="left">
+  <img src="images/5.png" alt="drawing" width="800"/>
+</p>
+
+The **pyproject.toml** file is the primary file that the **langchain** command and **poetry** both use to record dependency information and configure project metadata.
+
+```python
+poetry add "langserve[all]" langchain-openai python-decouple
+```
+
+- **langserve[all]:** The server and client components of the LangServe library.
+- **langchain-openai:** The package containing OpenAI integration for LangChain.
+- **python-decouple:** A package that can be used to read environment variables and .env files.
+
+### Create the LangServe application
+
+To create a basic LangServe application, open the app/server.py file in the text editor and replace the existing contents with the following code:
+
 ```python
 # app/server.py
 from decouple import config
@@ -215,8 +271,38 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
 ```
+
+#### Working principle of the application
+
+- Importing all of the necessary classes, functions, and other materials from the packages we've installed. 
+- Initializes a FastAPI() instance that will serve as the primary application object for the application.
+- Initialize instances of the ChatOpenAI and ChatPromptTemplate classes and assign them to the model and prompt variables.
+  - For the ChatOpenAI instance, we pass in the OpenAI API key from our .env file using the config object from python-decouple.
+  -  For the ChatPromptTemplate, we set the prompt to ask for a summary of the given topic.
+  - Then chain these two together in a chain variable.
+- Add a route to serve the new chain at /openai.
+- Use uvicorn to serve the application on all interfaces using port 8000.
+
+### Test the application
+
+```python
+langchain serve
+```
+
+<p align="left">
+  <img src="images/6.png" alt="drawing" width="700"/>
+</p>
+
+This will start the application server. To view the prompt page, navigate to http://127.0.0.1:8000/openai/playground/ in your web browser. 
+
+You can test whether it works correctly by asking a question or topic.
+
+<p align="left">
+  <img src="images/7.png" alt="drawing" width="700"/>
+</p>
+
+<a href="https://www.koyeb.com/tutorials/using-langserve-to-build-rest-apis-for-langchain-applications" target="_blank">Reference page of this section...</a>
 
 ## LangFlow
 
