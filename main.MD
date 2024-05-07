@@ -304,6 +304,24 @@ You can test whether it works correctly by asking a question or topic.
 
 <a href="https://www.koyeb.com/tutorials/using-langserve-to-build-rest-apis-for-langchain-applications" target="_blank">Reference page of this section...</a>
 
+#### Why Integrating OpenAI's models into a custom application using FastAPI?
+
+Integrating OpenAI's models into a custom application using FastAPI, as in the example above, instead of directly using the ChatGPT web interface, offers several advantages, especially when it comes to customization, integration, and control.
+
+1. **Custom Workflows and Logic:** By deploying your own application, you can integrate custom business logic that aligns with your specific requirements. For example, you can preprocess input data before sending it to the model, or postprocess the model's outputs for specific formatting or compliance needs.
+
+2. **Integration with Internal Systems:** A custom application allows for easier integration with existing internal systems and databases. This can be crucial for applications that need to fetch or store data from company-specific databases or other internal services and APIs.
+
+3. **Control Over Data:** When using your own application, you have full control over where and how your data is handled and stored. This can be important for privacy, security, and compliance with regulations like GDPR.
+
+4. **Cost Management:** You can implement logic to control how often and under what conditions queries are sent to OpenAI's models. This can help manage costs by avoiding unnecessary API calls, especially if you can handle some requests locally or cache frequent queries.
+
+5. **User Experience Customization:** You can design a user interface that specifically caters to your users' needs, which can be particularly important for applications requiring more complex interactions than a simple chat interface.
+
+6. **Access to Multiple Models:** With your own setup, you can seamlessly integrate multiple models or switch between different models depending on the task, without being tied to a specific model or interface provided by OpenAI.
+
+7. **Advanced Security Features:** You can implement advanced security measures such as authentication, encryption, and audit logs to ensure that access to the chat functionalities and underlying data is secure and compliant with your organizational standards.
+
 ## LangFlow
 
 
