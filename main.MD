@@ -233,7 +233,7 @@ This prompt actually refers to LangChain templates, not Python packages. Press E
 With the new project files, your directory should look similar to the screenshot below:
 
 <p align="left">
-  <img src="images/5.png" alt="drawing" width="800"/>
+  <img src="images/5.png" alt="drawing" width="600"/>
 </p>
 
 The **pyproject.toml** file is the primary file that the **langchain** command and **poetry** both use to record dependency information and configure project metadata.
